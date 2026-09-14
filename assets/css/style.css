@@ -615,3 +615,98 @@
     .choose-panel{ transition:none; }
     .choose-panel-body{ transition:none; }
   }
+
+  /* ============================================================
+     KUHUSU OVERLAY — Kuhusu (About) merged into index.html as a
+     slide-in panel instead of a separate page, so going Home <-> Kuhusu
+     never leaves index.html or loses your scroll position. Reuses the
+     existing navy/gold/paper tokens; the two-pane layout (a tab rail +
+     an independently-scrolling reading pane, like a company profile
+     binder) is the new part. Loaded on index.html only
+     (assets/js/kuhusu-overlay.js).
+     ============================================================ */
+
+  .kuhusu-overlay{
+    position:fixed; inset:0; z-index:260;
+    display:flex; background:var(--paper);
+    transform:translateX(100%); visibility:hidden;
+    transition:transform .5s cubic-bezier(.19,1,.22,1), visibility 0s linear .5s;
+  }
+  .kuhusu-overlay.open{ transform:translateX(0); visibility:visible; transition:transform .5s cubic-bezier(.19,1,.22,1); }
+  body.kuhusu-open{ overflow:hidden; }
+
+  /* Rail: acts like the tabbed index of a company profile binder */
+  .kuhusu-rail{
+    flex:0 0 300px; overflow-y:auto;
+    background:linear-gradient(160deg, var(--navy-deep), #001838); color:#fff;
+    display:flex; flex-direction:column; padding:26px 26px 30px;
+  }
+  .kuhusu-back{
+    all:unset; box-sizing:border-box; display:inline-flex; align-items:center; gap:9px;
+    align-self:flex-start; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.24);
+    color:#fff; font-family:'Manrope',sans-serif; font-size:13.5px; font-weight:700;
+    padding:10px 18px 10px 14px; border-radius:999px; cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .kuhusu-back:hover{ background:rgba(255,255,255,0.16); transform:translateX(-3px); }
+  .kuhusu-back svg{ width:15px; height:15px; stroke:currentColor; flex-shrink:0; }
+
+  .kuhusu-railtop{ display:flex; align-items:center; gap:10px; margin:40px 0 34px; }
+  .kuhusu-railtitle{ font-family:'Playfair Display',serif; font-size:21px; font-weight:700; }
+
+  .kuhusu-steps{ position:relative; display:flex; flex-direction:column; gap:8px; margin-bottom:auto; }
+  .kuhusu-step-line{ position:absolute; left:19px; top:14px; bottom:14px; width:2px; background:rgba(255,255,255,0.16); }
+  .kuhusu-step-fill{ position:absolute; left:0; top:0; width:100%; height:0%; background:var(--gold); transition:height .12s linear; }
+  .kuhusu-step{
+    all:unset; box-sizing:border-box; position:relative; z-index:1;
+    display:flex; align-items:center; gap:14px; padding:11px 8px; border-radius:12px;
+    color:rgba(255,255,255,0.58); cursor:pointer; transition:color .2s ease, background .2s ease;
+  }
+  .kuhusu-step:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .kuhusu-step svg{ width:17px; height:17px; stroke:currentColor; fill:none; flex-shrink:0; }
+  .kuhusu-step span{ font-size:14px; font-weight:700; }
+  .kuhusu-step.active{ color:#fff; }
+  .kuhusu-step.active svg{ stroke:var(--gold); }
+
+  .kuhusu-railfacts{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line-dark); display:flex; flex-direction:column; gap:6px; }
+  .kuhusu-railfacts .fact-row{ padding:10px 0; }
+
+  /* Content: its own scroll container, so the homepage behind it never moves */
+  .kuhusu-content{ flex:1; overflow-y:auto; scroll-behavior:smooth; }
+  .kuhusu-panel{ padding:74px 64px; max-width:760px; margin:0 auto; }
+  .kuhusu-panel + .kuhusu-panel{ border-top:1px solid var(--line); }
+  .kuhusu-panel h2{ font-size:clamp(23px,2.6vw,32px); font-weight:700; margin-top:6px; max-width:20ch; }
+  .kuhusu-panel > p{ color:var(--muted); font-size:15.5px; line-height:1.8; margin-top:16px; }
+  .kuhusu-panel > p.desc{ margin-top:10px; }
+
+  /* History timeline with a scroll-linked fill, since this content is an
+     actual chronological sequence (unlike the rail, which is just wayfinding) */
+  .kuhusu-timeline{ position:relative; margin-top:36px; padding-left:30px; display:flex; flex-direction:column; gap:34px; }
+  .kuhusu-timeline::before{ content:''; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--line); }
+  .kuhusu-timeline-fill{ position:absolute; left:5px; top:6px; width:2px; background:var(--gold-2); height:0%; }
+  .kuhusu-tl-row{ position:relative; }
+  .kuhusu-tl-row::before{ content:''; position:absolute; left:-30px; top:3px; width:11px; height:11px; border-radius:50%; background:var(--white); border:2px solid var(--navy); }
+  .kuhusu-tl-year{ display:block; font-family:'Playfair Display',serif; font-weight:700; font-size:18px; color:var(--navy); margin-bottom:6px; }
+  .kuhusu-tl-row b{ display:block; font-size:15px; margin-bottom:4px; }
+  .kuhusu-tl-row p{ font-size:13.5px; color:var(--muted); line-height:1.7; margin-top:0; }
+
+  /* Licenses as a snap-scrolling strip rather than a static grid */
+  .kuhusu-license-row{ display:flex; gap:16px; margin-top:32px; overflow-x:auto; scroll-snap-type:x proximity; padding-bottom:6px; margin-left:-64px; margin-right:-64px; padding-left:64px; padding-right:64px; }
+  .kuhusu-license-row .license-card{ flex:0 0 240px; scroll-snap-align:start; }
+
+  @media (max-width:900px){
+    .kuhusu-overlay{ flex-direction:column; }
+    .kuhusu-rail{ flex:0 0 auto; width:100%; flex-direction:row; align-items:center; gap:14px; padding:14px 16px; overflow-y:visible; overflow-x:auto; }
+    .kuhusu-railtop{ display:none; }
+    .kuhusu-steps{ flex-direction:row; margin-bottom:0; gap:2px; }
+    .kuhusu-step-line{ display:none; }
+    .kuhusu-step{ flex-direction:column; gap:4px; padding:8px 10px; white-space:nowrap; }
+    .kuhusu-step span{ font-size:12px; }
+    .kuhusu-railfacts{ display:none; }
+    .kuhusu-panel{ padding:44px 24px; }
+    .kuhusu-license-row{ margin-left:-24px; margin-right:-24px; padding-left:24px; padding-right:24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .kuhusu-overlay{ transition:none; }
+    .kuhusu-content{ scroll-behavior:auto; }
+  }
