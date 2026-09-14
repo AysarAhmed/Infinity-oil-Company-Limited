@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -79,7 +80,7 @@
       </div>
 
       <div class="map-overview reveal">
-        <iframe src="https://www.google.com/maps?q=Tanzania&z=6&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ramani ya jumla ya Tanzania"></iframe>
+        <div id="branchesMap" role="img" aria-label="Ramani inayoonyesha matawi yote ya Infinity Oil yenye eneo lililothibitishwa Google Maps"></div>
       </div>
 
       <div class="branch-card hq reveal" style="margin-top:36px;">
@@ -91,14 +92,12 @@
           </div>
         </div>
 
-      <!-- FIX: the 6 cards below (Mafiat, Soweto, Ilembo, Manyoni, Kahama,
-           Buza) previously all linked to Saza's exact map coordinates —
-           copy-pasted place_id, so "Fungua Ramani" sent customers to the
-           wrong station. They now search by name instead of pointing at
-           the wrong pin, and are visually flagged until you add the real
-           address/coordinates/phone for each. Grab each real place_id from
-           Google Maps (right-click the pin -> "What's here" -> or Share ->
-           the URL contains it) and swap it in once confirmed. -->
+      <!-- STATUS: Mafiat, Manyoni na Kahama sasa zina map pin za kweli
+           (zilithibitishwa kupitia link za Google Maps). Soweto, Ilembo na
+           Buza bado hazina eneo lililothibitishwa — kwa hizo tatu, kitufe
+           cha ramani kimeondolewa kwa makusudi na namba ya HQ imebaki peke
+           yake. Ukipata pini/mtaa halisi kwa yeyote kati ya hizi tatu,
+           ongeza tena kitufe cha "Fungua Ramani" na uondoe needs-info. -->
       <div class="branch-grid" style="margin-top:8px;">
         <div class="branch-card reveal">
           <span class="branch-tag">Kituo</span>
@@ -144,13 +143,13 @@
             <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
-        <div class="branch-card needs-info reveal">
-          <span class="needs-info-badge"><svg viewBox="0 0 24 24" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Taarifa Zinahitajika</span>
+        <div class="branch-card reveal">
+          <span class="branch-tag">Kituo</span>
           <h3>Infinity Oil Mafiat</h3>
-          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Mafiat, Tanzania</span></div>
+          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Mafiat, Mbeya, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Mafiat+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/place/INFINITY+OIL+MAFIAT/@-8.9109313,33.4559076,17z/data=!4m6!3m5!1s0x19009f006075aa41:0x4f8ed43a4695c4d8!8m2!3d-8.9109313!4d33.4559076!16s%2Fg%2F11zh66xqt7" target="_blank" rel="noopener">Fungua Ramani</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
         <div class="branch-card needs-info reveal">
@@ -158,8 +157,7 @@
           <h3>Infinity Oil Soweto</h3>
           <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Soweto, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Soweto+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
         <div class="branch-card needs-info reveal">
@@ -167,26 +165,25 @@
           <h3>Infinity Oil Ilembo</h3>
           <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Ilembo, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Ilembo+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
-        <div class="branch-card needs-info reveal">
-          <span class="needs-info-badge"><svg viewBox="0 0 24 24" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Taarifa Zinahitajika</span>
+        <div class="branch-card reveal">
+          <span class="branch-tag">Kituo</span>
           <h3>Infinity Oil Manyoni</h3>
-          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Manyoni, Tanzania</span></div>
+          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Manyoni, Singida, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Manyoni+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/place/Infinity+Oil+Manyoni/@-5.7556089,34.8215217,17z/data=!4m6!3m5!1s0x184cdd004f98a4cd:0x99350693cd10708b!8m2!3d-5.7556089!4d34.8215217!16s%2Fg%2F11x04md3qc" target="_blank" rel="noopener">Fungua Ramani</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
-        <div class="branch-card needs-info reveal">
-          <span class="needs-info-badge"><svg viewBox="0 0 24 24" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Taarifa Zinahitajika</span>
+        <div class="branch-card reveal">
+          <span class="branch-tag">Kituo</span>
           <h3>Infinity Oil Kahama</h3>
-          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Kahama, Tanzania</span></div>
+          <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Kahama, Shinyanga, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Kahama+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/place/Infinity+Oil+Kahama/@-3.8343818,32.617995,17z/data=!4m6!3m5!1s0x19c9a50000604917:0x83c8c24ea818e21f!8m2!3d-3.8343818!4d32.617995!16s%2Fg%2F11xmx_f5kk" target="_blank" rel="noopener">Fungua Ramani</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
         <div class="branch-card needs-info reveal">
@@ -194,8 +191,7 @@
           <h3>Infinity Oil Buza</h3>
           <div class="branch-meta"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Jaza mtaa/eneo], Buza, Tanzania</span></div>
           <div class="branch-actions">
-            <a class="btn btn-outline btn-sm" href="https://www.google.com/maps/search/?api=1&query=Infinity+Oil+Buza+Tanzania" target="_blank" rel="noopener">Tafuta Ramani</a>
-            <a class="btn btn-dark btn-sm" href="tel:+255657444444">Piga HQ</a>
+            <a class="btn btn-dark btn-sm" href="tel:+255657444444">+255 657 444 444</a>
           </div>
         </div>
       </div>
@@ -243,6 +239,65 @@
     </div>
   </div>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  // Matawi yenye eneo lililothibitishwa Google Maps pekee. Matawi ya
+  // Soweto, Ilembo na Buza bado hayapo hapa kwa sababu hayajapatikana
+  // Google Maps — ongeza mara data yake ikithibitishwa.
+  var infinityBranches = [
+    { name:"Infinity Oil Co. Ltd — HQ", tag:"Makao Makuu", address:"465C+MVP, Dar es Salaam, Tanzania", lat:-6.8909542, lng:39.2223602, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJYx-iQgA3XBgR2OoWq7zyCak", phone:"+255657444444" },
+    { name:"Infinity Oil Mbeya", tag:"Kituo", address:"3FQ4+J99, Mbeya, Tanzania", lat:-8.9109313, lng:33.4559076, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJQap1YACfABkR2MSVRjrUjk8", phone:"+255657444444" },
+    { name:"Infinity Oil Rungwa", tag:"Kituo", address:"3G49+388, Rungwa, Tanzania", lat:-6.944844, lng:33.518331, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJ9_Y7agC3rRkRC1CJmC4sVTg", phone:"+255792119418" },
+    { name:"Infinity Oil Mitundu", tag:"Kituo", address:"X3V8+RW, Mgandu, Tanzania", lat:-6.005438, lng:34.0673184, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJFegnIADnshkRtjHwShsxwrM", phone:"+255625898680" },
+    { name:"Infinity Oil Songwe", tag:"Kituo", address:"26WJ+XC8, Songwe, Tanzania", lat:-8.9525813, lng:33.2310777, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJLwKoSQCpABkRoI0QdZUhgcQ", phone:"+255657444444" },
+    { name:"Infinity Oil Saza", tag:"Kituo", address:"JX9X+84J, Saza, Tanzania", lat:-8.381666, lng:32.9977742, mapsUrl:"https://www.google.com/maps/place/?q=place_id:ChIJ58XVLACBqRkRPwajTV0zyiE", phone:"+255657444444" },
+    { name:"Infinity Oil Manyoni", tag:"Kituo", address:"Manyoni, Singida, Tanzania", lat:-5.7556089, lng:34.8215217, mapsUrl:"https://www.google.com/maps/place/Infinity+Oil+Manyoni/@-5.7556089,34.8215217,17z/data=!4m6!3m5!1s0x184cdd004f98a4cd:0x99350693cd10708b!8m2!3d-5.7556089!4d34.8215217!16s%2Fg%2F11x04md3qc", phone:"+255657444444" },
+    { name:"Infinity Oil Kahama", tag:"Kituo", address:"Kahama, Shinyanga, Tanzania", lat:-3.8343818, lng:32.617995, mapsUrl:"https://www.google.com/maps/place/Infinity+Oil+Kahama/@-3.8343818,32.617995,17z/data=!4m6!3m5!1s0x19c9a50000604917:0x83c8c24ea818e21f!8m2!3d-3.8343818!4d32.617995!16s%2Fg%2F11xmx_f5kk", phone:"+255657444444" }
+  ];
+
+  (function(){
+    var mapEl = document.getElementById('branchesMap');
+    if(!mapEl || typeof L === 'undefined') return;
+
+    var map = L.map(mapEl, { scrollWheelZoom:false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom:18,
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> wachangiaji'
+    }).addTo(map);
+
+    var markerIcon = function(isHq){
+      return L.divIcon({
+        className:'brmap-pin' + (isHq ? ' brmap-pin-hq' : ''),
+        html:'<span></span>',
+        iconSize:[18,18],
+        iconAnchor:[9,9],
+        popupAnchor:[0,-10]
+      });
+    };
+
+    var pins = [];
+    infinityBranches.forEach(function(b){
+      var popupHtml =
+        '<div class="brmap-popup">' +
+          '<span class="brmap-tag">' + b.tag + '</span>' +
+          '<h4>' + b.name + '</h4>' +
+          '<p>' + b.address + '</p>' +
+          '<div class="brmap-actions">' +
+            '<a href="' + b.mapsUrl + '" target="_blank" rel="noopener">Fungua Ramani</a>' +
+            (b.phone ? '<a href="tel:' + b.phone + '">' + b.phone.replace('+255','+255 ').replace(/(\d{3})(\d{3})(\d{3})$/, '$1 $2 $3') + '</a>' : '') +
+          '</div>' +
+        '</div>';
+      var marker = L.marker([b.lat, b.lng], { icon: markerIcon(b.tag === 'Makao Makuu') }).addTo(map).bindPopup(popupHtml);
+      pins.push(marker);
+    });
+
+    if(pins.length){
+      var group = L.featureGroup(pins);
+      map.fitBounds(group.getBounds(), { padding:[28,28] });
+    }
+  })();
+</script>
 
 <script src="assets/js/main.js"></script>
 

@@ -100,7 +100,15 @@
 
 <main id="content">
 
-  <section class="hero">
+  <section class="hero" id="heroSlider">
+    <div class="hero-slides" aria-hidden="true">
+      <div class="hero-slide active" style="background-image:url('images/ofa-mbeya-2.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/kituo-alama-2.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/malori-yetu.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/kituo-alama-1.jpg');"></div>
+    </div>
+    <div class="hero-overlay"></div>
+
     <div class="hero-inner">
       <svg class="hero-infinity" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
         <path d="M100,50 C100,72 82,90 60,90 C38,90 20,72 20,50 C20,28 38,10 60,10 C82,10 100,28 100,50 C100,72 118,90 140,90 C162,90 180,72 180,50 C180,28 162,10 140,10 C118,10 100,28 100,50 Z" fill="none" stroke="#ffffff" stroke-width="1.4"/>
@@ -132,6 +140,34 @@
         <div class="hero-stat"><b>24/7</b><span>Huduma Muda Wote</span></div>
         <div class="hero-stat"><b>10+</b><span>Miaka ya uzoefu</span></div>
         <div class="hero-stat"><b>Dar es Salaam</b><span>Makao Makuu</span></div>
+      </div>
+
+      <p class="hero-feature-caption" id="heroFeatureCaption">
+        <span class="hero-feature-label">Petroli na Dizeli Bora</span>
+        <span class="hero-feature-desc">Mafuta safi yanayokidhi kiwango cha ubora, yanapatikana kwenye kila tawi letu.</span>
+      </p>
+
+      <div class="hero-tabs" role="tablist" aria-label="Vipengele vikuu vya Infinity Oil">
+        <button class="hero-tab active" type="button" role="tab" aria-selected="true" data-slide="0"
+          data-label="Petroli na Dizeli Bora" data-desc="Mafuta safi yanayokidhi kiwango cha ubora, yanapatikana kwenye kila tawi letu.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22h12"/><path d="M6 18V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14"/><path d="M14 8h2a2 2 0 0 1 2 2v2.5a1.5 1.5 0 0 0 3 0V8l-3-3"/></svg>
+          <span>Petroli na Dizeli</span>
+        </button>
+        <button class="hero-tab" type="button" role="tab" aria-selected="false" data-slide="1"
+          data-label="Huduma Bila Kukoma" data-desc="Vituo vyetu vinafunguliwa saa 24, siku saba kwa wiki — safari yako haisimami kamwe.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Huduma Saa 24/7</span>
+        </button>
+        <button class="hero-tab" type="button" role="tab" aria-selected="false" data-slide="2"
+          data-label="Usafirishaji wa Uhakika" data-desc="Malori yetu ya kisasa yanahakikisha mafuta yanafika vituoni vyote kwa wakati na kwa usalama.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17h2l1.5-7h9.5l2 7h1"/><rect x="5" y="17" width="14" height="3" rx="1"/><circle cx="7.5" cy="14" r="1"/><circle cx="16.5" cy="14" r="1"/></svg>
+          <span>Meli ya Malori</span>
+        </button>
+        <button class="hero-tab" type="button" role="tab" aria-selected="false" data-slide="3"
+          data-label="Mtandao Unaokua Kila Siku" data-desc="Kutoka Mbeya hadi Dar es Salaam — tunakuwa karibu nawe popote ulipo nchini.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Matawi Tanzania</span>
+        </button>
       </div>
     </div>
   </section>
@@ -199,6 +235,98 @@
     </div>
   </section>
 
+  <section class="section choose" id="kwanini">
+    <div class="container">
+      <div class="reveal" style="text-align:center;">
+        <div class="kicker"><svg class="infi" width="22" height="11" viewBox="0 0 200 100"><path d="M100,50 C100,72 82,90 60,90 C38,90 20,72 20,50 C20,28 38,10 60,10 C82,10 100,28 100,50 C100,72 118,90 140,90 C162,90 180,72 180,50 C180,28 162,10 140,10 C118,10 100,28 100,50 Z" fill="none" stroke-width="12"/></svg>Kwa Nini Utuchague</div>
+        <h2 style="margin:0 auto;">Suluhisho Kamili la Mafuta Unaloweza Kuliamini</h2>
+        <p class="desc" style="margin:16px auto 0;">Bofya kila kadi kupata maelezo zaidi kuhusu sehemu hiyo ya huduma zetu.</p>
+      </div>
+
+      <div class="choose-grid reveal" id="chooseGrid">
+        <div class="choose-panel active">
+          <button class="choose-panel-toggle" type="button" aria-expanded="true" aria-controls="chooseBody0" id="chooseTab0">
+            <span class="choose-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c-4 5-7 9-7 13a7 7 0 0 0 14 0c0-4-3-8-7-13z"/></svg></span>
+            <span class="choose-panel-label">Ubora wa Mafuta</span>
+          </button>
+          <div class="choose-panel-body" id="chooseBody0" role="region" aria-labelledby="chooseTab0">
+            <p class="choose-panel-text">Kila lita inayotoka vituoni kwetu inapitia ukaguzi wa ubora kabla ya kuuzwa, ili kuhakikisha injini yako inafanya kazi vizuri na kwa muda mrefu.</p>
+            <ul class="choose-panel-list">
+              <li>Petroli na Dizeli safi</li>
+              <li>Mafuta ya injini ya kimataifa</li>
+              <li>Ukaguzi wa mara kwa mara</li>
+            </ul>
+            <a class="choose-panel-link" href="huduma.html">Angalia Huduma Zote &rarr;</a>
+          </div>
+        </div>
+
+        <div class="choose-panel">
+          <button class="choose-panel-toggle" type="button" aria-expanded="false" aria-controls="chooseBody1" id="chooseTab1">
+            <span class="choose-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <span class="choose-panel-label">Huduma Saa 24/7</span>
+          </button>
+          <div class="choose-panel-body" id="chooseBody1" role="region" aria-labelledby="chooseTab1">
+            <p class="choose-panel-text">Vituo vyetu havifungi — mchana au usiku, wikendi au sikukuu, wewe na gari lako mtapata huduma unayohitaji papo hapo.</p>
+            <ul class="choose-panel-list">
+              <li>Vituo wazi saa 24</li>
+              <li>Wafanyakazi tayari muda wote</li>
+              <li>Msaada wa haraka barabarani</li>
+            </ul>
+            <a class="choose-panel-link" href="matawi.html">Tazama Matawi Yetu &rarr;</a>
+          </div>
+        </div>
+
+        <div class="choose-panel">
+          <button class="choose-panel-toggle" type="button" aria-expanded="false" aria-controls="chooseBody2" id="chooseTab2">
+            <span class="choose-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17h2l1.5-7h9.5l2 7h1"/><rect x="5" y="17" width="14" height="3" rx="1"/><circle cx="7.5" cy="14" r="1"/><circle cx="16.5" cy="14" r="1"/></svg></span>
+            <span class="choose-panel-label">Meli ya Malori</span>
+          </button>
+          <div class="choose-panel-body" id="chooseBody2" role="region" aria-labelledby="chooseTab2">
+            <p class="choose-panel-text">Infinity Oil ina meli yake ya malori ya kisasa yanayosafirisha mafuta moja kwa moja kutoka chanzo hadi kila tawi, yakipunguza uwezekano wa uhaba.</p>
+            <ul class="choose-panel-list">
+              <li>Usafirishaji wa uhakika</li>
+              <li>Ratiba za mara kwa mara</li>
+              <li>Usalama wa hali ya juu</li>
+            </ul>
+            <a class="choose-panel-link" href="picha.html">Tazama Malori Yetu &rarr;</a>
+          </div>
+        </div>
+
+        <div class="choose-panel">
+          <button class="choose-panel-toggle" type="button" aria-expanded="false" aria-controls="chooseBody3" id="chooseTab3">
+            <span class="choose-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span class="choose-panel-label">Matawi Kote Tanzania</span>
+          </button>
+          <div class="choose-panel-body" id="chooseBody3" role="region" aria-labelledby="chooseTab3">
+            <p class="choose-panel-text">Kutoka Mbeya hadi Dar es Salaam, mtandao wetu wa matawi unaendelea kukua ili tuwe karibu nawe popote safari yako inapokupeleka.</p>
+            <ul class="choose-panel-list">
+              <li>Matawi mengi nchini</li>
+              <li>Makao Makuu Dar es Salaam</li>
+              <li>Upanuzi unaoendelea</li>
+            </ul>
+            <a class="choose-panel-link" href="matawi.html">Tazama Matawi Yetu &rarr;</a>
+          </div>
+        </div>
+
+        <div class="choose-panel">
+          <button class="choose-panel-toggle" type="button" aria-expanded="false" aria-controls="chooseBody4" id="chooseTab4">
+            <span class="choose-panel-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span class="choose-panel-label">Timu ya Wataalamu</span>
+          </button>
+          <div class="choose-panel-body" id="chooseBody4" role="region" aria-labelledby="chooseTab4">
+            <p class="choose-panel-text">Wafanyakazi wetu wamefunzwa kutoa huduma kwa heshima, usalama na weledi — kutoka kujaza mafuta hadi kukusaidia na maswali yako.</p>
+            <ul class="choose-panel-list">
+              <li>Mafunzo ya usalama</li>
+              <li>Huduma kwa heshima</li>
+              <li>Wako tayari kukusaidia</li>
+            </ul>
+            <a class="choose-panel-link" href="wasiliana.html">Wasiliana Nasi &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section testimonials" id="maoni">
     <div class="container">
       <div class="reveal" style="text-align:center;">
@@ -213,7 +341,7 @@
       <div class="testi-grid">
         <div class="testi-card reveal">
           <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
-          <p class="testi-quote">"[Andika maoni halisi ya mteja hapa — mfano: huduma ya haraka na mafuta safi.]"</p>
+          <p class="testi-quote">“Nimefurahia huduma ninazopata kutoka Infinity Oil Company Limited. Wafanyakazi wao ni wenye ushirikiano, na wanazingatia ubora pamoja na usalama katika utoaji wa huduma. Hakika ni kampuni inayojali wateja wake.”</p>
           <div class="testi-person">
             <div class="testi-avatar">?</div>
             <div><b>[Jina la Mteja]</b><span>[Tawi / Mji]</span></div>
@@ -221,18 +349,18 @@
         </div>
         <div class="testi-card reveal">
           <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
-          <p class="testi-quote">"[Andika maoni halisi ya mteja hapa — mfano: wafanyakazi ni wastaarabu na huduma ni ya saa 24.]"</p>
+          <p class="testi-quote">"Infinity Oil imekuwa mshirika mzuri katika mahitaji yetu ya mafuta. Huduma ni nzuri, mawasiliano yao ni rahisi na wanajitahidi kuhakikisha mteja anapata huduma kwa wakati. Ninapendekeza huduma zao.”</p>
           <div class="testi-person">
             <div class="testi-avatar">?</div>
-            <div><b>[Jina la Mteja]</b><span>[Tawi / Mji]</span></div>
+            <div><b>Iddi Hassan</b><span>Manyoni</span></div>
           </div>
         </div>
         <div class="testi-card reveal">
           <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
-          <p class="testi-quote">"[Andika maoni halisi ya mteja hapa — mfano: kituo safi na foleni fupi.]"</p>
+          <p class="testi-quote">"Naapendaga sana kituo chao cha Mbeya huwa kinatoa discount kubwa ya bei yao ya mafuta"</p>
           <div class="testi-person">
             <div class="testi-avatar">?</div>
-            <div><b>[Jina la Mteja]</b><span>[Tawi / Mji]</span></div>
+            <div><b>Mohammed Rashid</b><span>Mbeya</span></div>
           </div>
         </div>
       </div>
@@ -297,5 +425,7 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/intro.js"></script>
+<script src="assets/js/hero-slider.js"></script>
+<script src="assets/js/choose-cards.js"></script>
 </body>
 </html>

@@ -269,6 +269,7 @@
   .branch-meta{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--muted); line-height:1.5; }
   .branch-meta svg{ width:15px; height:15px; stroke:var(--navy); fill:none; flex-shrink:0; margin-top:2px; }
   .branch-actions{ display:flex; gap:10px; margin-top:auto; padding-top:6px; flex-wrap:wrap; }
+  .branch-actions .btn:only-child{ flex:1; justify-content:center; }
 
   /* Social band */
   .social-band{ background:linear-gradient(160deg, var(--navy-deep), #001838); color:#fff; }
@@ -419,6 +420,19 @@
   /* Map overview on Matawi */
   .map-overview{ max-width:var(--container); margin:36px auto 0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow-md); }
   .map-overview iframe{ width:100%; height:420px; border:0; display:block; }
+  .map-overview #branchesMap{ width:100%; height:420px; background:var(--paper-2); }
+
+  /* Branch overview map — custom pins & popup content (Leaflet) */
+  .brmap-pin span{ display:block; width:18px; height:18px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:var(--navy); border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.35); }
+  .brmap-pin-hq span{ background:var(--gold); }
+  .leaflet-popup-content-wrapper{ border-radius:14px; box-shadow:var(--shadow-md); }
+  .leaflet-popup-content{ margin:14px 16px; min-width:180px; }
+  .brmap-tag{ display:inline-flex; font-size:10.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:3px 9px; border-radius:999px; background:var(--paper-2); color:var(--muted); margin-bottom:8px; }
+  .brmap-popup h4{ font-family:'Manrope',sans-serif; font-size:14.5px; font-weight:700; color:var(--black); margin:0 0 4px; }
+  .brmap-popup p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin:0 0 10px; }
+  .brmap-actions{ display:flex; flex-direction:column; gap:6px; }
+  .brmap-actions a{ font-size:12.5px; font-weight:700; color:var(--navy); }
+  .brmap-actions a:hover{ color:var(--gold-2); text-decoration:underline; }
 
   /* WhatsApp floating action button */
   .wa-fab{
@@ -471,4 +485,133 @@
     .testi-grid{ grid-template-columns:1fr; }
     .license-grid{ grid-template-columns:1fr; }
     .trust-inner{ gap:18px 26px; }
+  }
+
+  /* ============================================================
+     HOMEPAGE OVERHAUL — auto-playing hero background slider with
+     interactive feature tabs, and the "Kwa Nini Utuchague" expanding
+     accordion panels. Loaded on index.html only (assets/js/hero-slider.js,
+     assets/js/choose-cards.js). Colors, type and radius all reuse the
+     existing --navy/--gold/--paper token set — no new palette introduced.
+     ============================================================ */
+
+  /* --- Hero: background slider layer --- */
+  .hero{ position:relative; }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero-slides{
+    position:absolute; inset:0; z-index:0; overflow:hidden;
+  }
+  .hero-slide{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0; transition:opacity 1.6s ease;
+  }
+  .hero-slide.active{ opacity:1; }
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:radial-gradient(120% 100% at 50% -10%, rgba(0,18,56,0.93) 0%, rgba(0,22,63,0.9) 55%, rgba(0,12,36,0.94) 100%);
+  }
+
+  /* --- Hero: feature caption line, swaps text with the active tab --- */
+  .hero-feature-caption{
+    position:relative; display:flex; flex-direction:column; gap:4px;
+    margin-top:46px; padding-top:26px; border-top:1px solid var(--line-dark);
+    max-width:440px; margin-left:auto; margin-right:auto;
+    transition:opacity .25s ease;
+  }
+  .hero-feature-caption.swap{ opacity:0; }
+  .hero-feature-label{ font-family:'Playfair Display',serif; font-weight:700; font-size:15.5px; color:var(--gold); }
+  .hero-feature-desc{ font-size:13px; color:var(--muted-2); line-height:1.6; }
+
+  /* --- Hero: feature tabs --- */
+  .hero-tabs{
+    position:relative; display:flex; gap:10px; justify-content:center;
+    margin-top:22px; flex-wrap:wrap;
+  }
+  .hero-tab{
+    display:flex; align-items:center; gap:9px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.16);
+    border-radius:999px; padding:11px 18px; color:rgba(255,255,255,0.75);
+    font-family:'Manrope',sans-serif; font-size:13px; font-weight:700;
+    cursor:pointer; transition:background .25s ease, border-color .25s ease, color .25s ease, transform .18s ease;
+  }
+  .hero-tab svg{ width:15px; height:15px; stroke:currentColor; fill:none; flex-shrink:0; }
+  .hero-tab:hover{ background:rgba(255,255,255,0.12); color:#fff; transform:translateY(-2px); }
+  .hero-tab.active{ background:var(--gold); border-color:var(--gold); color:var(--navy-deep); }
+
+  @media (max-width:640px){
+    .hero-tabs{ gap:8px; }
+    .hero-tab{ flex:1 1 calc(50% - 8px); justify-content:center; padding:10px 12px; font-size:12px; }
+    .hero-tab span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .hero-feature-caption{ margin-top:36px; padding-top:20px; }
+  }
+
+  /* --- "Kwa Nini Utuchague" interactive accordion panels --- */
+  .choose{ background:var(--paper); }
+  .choose-grid{
+    max-width:var(--container); margin:48px auto 0;
+    display:flex; gap:14px; align-items:stretch; height:440px;
+  }
+  .choose-panel{
+    position:relative; flex:0 0 108px;
+    background:linear-gradient(160deg, var(--navy-deep), #001838);
+    border-radius:var(--radius); overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:flex-basis .5s cubic-bezier(.25,.8,.25,1), box-shadow .3s ease;
+    box-shadow:var(--shadow-md);
+  }
+  .choose-panel.active{ flex:2.4 1 0; box-shadow:var(--shadow-lg); }
+  .choose-panel:not(.active):hover{ background:linear-gradient(160deg, #002250, #012a4a); }
+
+  .choose-panel-toggle{
+    all:unset; box-sizing:border-box; position:relative; z-index:2;
+    display:flex; align-items:center; gap:16px; width:100%;
+    padding:24px 18px; cursor:pointer; color:#fff;
+  }
+  .choose-panel-ico{
+    width:42px; height:42px; border-radius:11px; background:var(--gold);
+    display:grid; place-items:center; flex-shrink:0; transition:background .3s ease;
+  }
+  .choose-panel-ico svg{ width:19px; height:19px; stroke:var(--navy-deep); fill:none; }
+  .choose-panel.active .choose-panel-ico{ background:var(--gold-2); }
+  .choose-panel-label{
+    font-family:'Playfair Display',serif; font-weight:700; font-size:15px; white-space:nowrap;
+    writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg);
+  }
+  .choose-panel.active .choose-panel-label{ writing-mode:horizontal-tb; transform:none; font-size:18px; }
+
+  .choose-panel-body{
+    position:relative; z-index:2; padding:0 22px 24px; color:rgba(255,255,255,0.8);
+    opacity:0; max-height:0; overflow:hidden;
+    transition:opacity .3s ease, max-height .5s ease;
+  }
+  .choose-panel.active .choose-panel-body{ opacity:1; max-height:320px; transition:opacity .35s ease .15s, max-height .5s ease; }
+  .choose-panel-text{ font-size:13.5px; line-height:1.7; color:rgba(255,255,255,0.72); }
+  .choose-panel-list{ margin-top:14px; display:flex; flex-direction:column; gap:8px; }
+  .choose-panel-list li{ font-size:13px; padding-left:19px; position:relative; color:rgba(255,255,255,0.85); }
+  .choose-panel-list li::before{ content:''; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--gold); }
+  .choose-panel-link{ display:inline-block; margin-top:16px; font-size:12.5px; font-weight:700; color:var(--gold); }
+  .choose-panel-link:hover{ text-decoration:underline; }
+  .choose-panel-toggle:focus-visible{ outline:3px solid var(--navy-2); outline-offset:-3px; border-radius:var(--radius); }
+
+  /* Staggered entrance for the panel row (single orchestrated reveal, not per-card scroll effects) */
+  .choose-grid.reveal .choose-panel{ transition:flex-basis .5s cubic-bezier(.25,.8,.25,1), box-shadow .3s ease, opacity .6s ease, transform .6s ease; }
+  .choose-grid.reveal:not(.in) .choose-panel{ opacity:0; transform:translateY(16px); }
+  .choose-grid.reveal.in .choose-panel:nth-child(1){ transition-delay:.05s; }
+  .choose-grid.reveal.in .choose-panel:nth-child(2){ transition-delay:.12s; }
+  .choose-grid.reveal.in .choose-panel:nth-child(3){ transition-delay:.19s; }
+  .choose-grid.reveal.in .choose-panel:nth-child(4){ transition-delay:.26s; }
+  .choose-grid.reveal.in .choose-panel:nth-child(5){ transition-delay:.33s; }
+
+  @media (max-width:900px){
+    .choose-grid{ flex-direction:column; height:auto; }
+    .choose-panel{ flex-basis:auto !important; }
+    .choose-panel-label{ writing-mode:horizontal-tb !important; transform:none !important; font-size:16px; }
+    .choose-panel-body{ max-height:0; }
+    .choose-panel.active .choose-panel-body{ max-height:600px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-slide{ transition:none; }
+    .choose-panel{ transition:none; }
+    .choose-panel-body{ transition:none; }
   }
