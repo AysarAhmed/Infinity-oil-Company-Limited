@@ -16,5 +16,36 @@
 .ex-split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .ex-embed{max-width:440px;width:100%;justify-self:center;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:6px;overflow:hidden}
 .ex-embed .tiktok-embed{margin:0 auto}
-.ex-lang{border:1.5px solid var(--gold);background:transparent;color:#fff;font:800 .8rem Manrope,sans-serif;padding:8px 12px;border-radius:99px;cursor:pointer}
 @media(max-width:860px){.ex-split{grid-template-columns:1fr}}
+
+body{overflow-x:clip}
+.ex-msoc{display:none}
+.ex-near .btn,.ex-tt .btn{min-height:46px}
+@media(max-width:560px){
+ /* tidy phone header: logo, call button, menu only (socials move into the menu) */
+ .site-header,.site-header.scrolled{padding:9px 14px;gap:10px}
+ .header-actions{gap:8px}
+ .header-actions .icon-btn{display:none}
+ .header-actions .btn{padding:10px 16px;font-size:13px;white-space:nowrap}
+ .mobile-nav .ex-msoc{display:flex;justify-content:center;gap:10px;margin:4px 0 8px}
+ .mobile-nav .ex-msoc a{font-size:14px;font-weight:700;padding:9px 18px;border:1px solid rgba(255,255,255,.3);border-radius:99px;color:#fff}
+ /* hero: facts in a 2x2 grid instead of a tall stack */
+ .hero h1{font-size:30px;line-height:1.15}
+ .hero p.lead{font-size:15.5px;line-height:1.65}
+ .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;margin-top:34px;text-align:center}
+ .hero-stat{border-left:none;padding:0}
+ .hero-stat b{font-size:22px}
+ /* new sections */
+ .ex-prices.section,.ex-near.section,.ex-tt.section{padding:52px 18px}
+ .ex-grid{grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+ .ex-card{padding:18px}
+ .ex-card:last-child{grid-column:1/-1}
+ .ex-card b{font-size:1.7rem}
+ .ex-row{flex-direction:column}
+ .ex-row .btn{width:100%;justify-content:center;text-align:center}
+ .ex-split{gap:26px}
+ .ex-tt .btn{width:100%;justify-content:center;text-align:center}
+ .ex-embed{max-width:100%}
+ .social-inner{gap:14px}
+ .social-inner>.btn{width:100%;justify-content:center;text-align:center}
+}
