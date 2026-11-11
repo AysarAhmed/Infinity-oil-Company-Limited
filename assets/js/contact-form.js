@@ -1,29 +1,28 @@
-/* Complaint form: sends via FormSubmit's AJAX endpoint (no redirect needed),
-   shows the success banner or a clear error message.
-   Also keeps support for ?sent=true in case the old redirect flow is used. */
+/* Complaint form.
+   Works with NO sign-up and NO backend: it opens WhatsApp with the complaint
+   already written out, so the customer only has to press Send.
+
+   OPTIONAL (email delivery): create a free key at https://web3forms.com
+   (enter your email, they send you the key), paste it below, and complaints
+   will ALSO arrive by email. Leave it empty to use WhatsApp only. */
 (function () {
-  var AJAX_URL = 'https://formsubmit.co/ajax/aysarnassor2026@gmail.com';
+  var WHATSAPP_NUMBER = '255627304950';
+  var WEB3FORMS_KEY = 'ecf17a6c-1794-4aa7-b454-d3ce5dca3221';   // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 
   var banner = document.getElementById('formSuccess');
   var form = document.querySelector('.complaint-form');
   var errBox = document.getElementById('formError');
+  if (!form) return;
 
-  function showSuccess() {
+  function showSuccess(title, text) {
     if (!banner) return;
+    var box = banner.querySelector('div');
+    if (box && title) box.innerHTML = '<b>' + title + '</b>' + text;
     banner.classList.add('show');
     setTimeout(function () {
       banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 50);
   }
-
-  // Old redirect flow (?sent=true)
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('sent') === 'true') {
-    showSuccess();
-    window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
-  }
-
-  if (!form) return;
 
   function showError(msg) {
     if (!errBox) { alert(msg); return; }
@@ -31,47 +30,83 @@
     errBox.hidden = false;
   }
 
+  function buildMessage(fd) {
+    var lines = [
+      '*Malalamiko Mapya - Tovuti ya Infinity Oil*',
+      '',
+      'Jina: ' + (fd.get('Jina') || ''),
+      'Barua Pepe: ' + (fd.get('email') || ''),
+      'Simu: ' + (fd.get('Simu') || '-'),
+      'Tawi: ' + (fd.get('Tawi') || '-'),
+      'Aina: ' + (fd.get('Aina_ya_Malalamiko') || ''),
+      '',
+      'Maelezo:',
+      (fd.get('Maelezo') || '')
+    ];
+    return lines.join('\n');
+  }
+
+  function openWhatsApp(fd) {
+    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(buildMessage(fd));
+    window.open(url, '_blank');
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (errBox) errBox.hidden = true;
 
-    // Honeypot: bots fill this, humans don't
     var honey = form.querySelector('.form-honey');
-    if (honey && honey.value) return;
-
-    if (window.location.protocol === 'file:') {
-      showError('Fomu haifanyi kazi ukifungua faili moja kwa moja kwenye kompyuta. Tafadhali itumie ukiwa kwenye tovuti halisi, au tupigie +255 657 444 444.');
-      return;
-    }
+    if (honey && honey.value) return; // bot
 
     var btn = form.querySelector('button[type="submit"]');
     var label = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Inatuma...'; }
+    function restore() { if (btn) { btn.disabled = false; btn.textContent = label; } }
 
-    var data = new FormData(form);
-    data.delete('_next'); // not needed for AJAX
+    var fd = new FormData(form);
 
-    fetch(AJAX_URL, {
+    if (!WEB3FORMS_KEY) {
+      // WhatsApp-only mode
+      openWhatsApp(fd);
+      form.reset();
+      showSuccess('Karibu Umalizie WhatsApp',
+        'Tumekufungulia WhatsApp na ujumbe wako tayari. Bonyeza <strong>Send</strong> ili malalamiko yawafikie timu yetu.');
+      restore();
+      return;
+    }
+
+
+    var payload = {
+      access_key: WEB3FORMS_KEY,
+      subject: 'Malalamiko Mapya - Tovuti ya Infinity Oil',
+      from_name: fd.get('Jina') || 'Tovuti ya Infinity Oil',
+      name: fd.get('Jina'),
+      email: fd.get('email'),
+      phone: fd.get('Simu'),
+      branch: fd.get('Tawi'),
+      type: fd.get('Aina_ya_Malalamiko'),
+      message: fd.get('Maelezo')
+    };
+
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: data
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
     })
-      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (r) { return r.json(); })
       .then(function (res) {
-        var ok = res && (res.success === true || res.success === 'true');
-        if (ok) {
+        if (res && res.success) {
           form.reset();
-          showSuccess();
+          showSuccess('Asante - Ujumbe Wako Umetumwa',
+            'Timu yetu itapitia malalamiko yako na kuwasiliana nawe hivi karibuni.');
         } else {
-          var m = (res && res.message) ? ' (' + res.message + ')' : '';
-          showError('Samahani, ujumbe haukutumwa.' + m + ' Tafadhali jaribu tena, au tupigie +255 657 444 444 / WhatsApp.');
+          throw new Error((res && res.message) || 'failed');
         }
       })
       .catch(function () {
-        showError('Samahani, kuna tatizo la mtandao. Tafadhali jaribu tena, au tupigie +255 657 444 444 / WhatsApp.');
+        openWhatsApp(fd);
+        showError('Barua pepe imeshindikana, kwa hiyo tumekufungulia WhatsApp. Bonyeza Send ili kutuma malalamiko yako.');
       })
-      .then(function () {
-        if (btn) { btn.disabled = false; btn.textContent = label; }
-      });
+      .then(restore);
   });
 })();
