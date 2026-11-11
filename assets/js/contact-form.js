@@ -1,13 +1,10 @@
 /* Complaint form.
-   Works with NO sign-up and NO backend: it opens WhatsApp with the complaint
-   already written out, so the customer only has to press Send.
-
-   OPTIONAL (email delivery): create a free key at https://web3forms.com
-   (enter your email, they send you the key), paste it below, and complaints
-   will ALSO arrive by email. Leave it empty to use WhatsApp only. */
+   1) Tries to email the complaint through Web3Forms.
+   2) If that fails, shows the REAL reason and a button to send via WhatsApp
+      (a clickable link, because browsers block window.open after a fetch). */
 (function () {
   var WHATSAPP_NUMBER = '255627304950';
-  var WEB3FORMS_KEY = 'ecf17a6c-1794-4aa7-b454-d3ce5dca3221';   // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  var WEB3FORMS_KEY = 'ecf17a6c-1794-4aa7-b454-d3ce5dca3221';
 
   var banner = document.getElementById('formSuccess');
   var form = document.querySelector('.complaint-form');
@@ -24,14 +21,8 @@
     }, 50);
   }
 
-  function showError(msg) {
-    if (!errBox) { alert(msg); return; }
-    errBox.textContent = msg;
-    errBox.hidden = false;
-  }
-
   function buildMessage(fd) {
-    var lines = [
+    return [
       '*Malalamiko Mapya - Tovuti ya Infinity Oil*',
       '',
       'Jina: ' + (fd.get('Jina') || ''),
@@ -42,13 +33,27 @@
       '',
       'Maelezo:',
       (fd.get('Maelezo') || '')
-    ];
-    return lines.join('\n');
+    ].join('\n');
   }
 
-  function openWhatsApp(fd) {
-    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(buildMessage(fd));
-    window.open(url, '_blank');
+  function waUrl(fd) {
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(buildMessage(fd));
+  }
+
+  function showErrorWithWhatsApp(reason, fd) {
+    if (!errBox) { window.open(waUrl(fd), '_blank'); return; }
+    errBox.textContent = '';
+    errBox.appendChild(document.createTextNode(
+      'Barua pepe imeshindikana' + (reason ? ' (' + reason + ')' : '') + '. '));
+    var a = document.createElement('a');
+    a.href = waUrl(fd);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'Bonyeza hapa kutuma malalamiko yako kupitia WhatsApp';
+    a.style.cssText = 'color:#8a1f17;text-decoration:underline;font-weight:700;';
+    errBox.appendChild(a);
+    errBox.hidden = false;
+    errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   form.addEventListener('submit', function (e) {
@@ -66,15 +71,13 @@
     var fd = new FormData(form);
 
     if (!WEB3FORMS_KEY) {
-      // WhatsApp-only mode
-      openWhatsApp(fd);
+      window.open(waUrl(fd), '_blank');
       form.reset();
       showSuccess('Karibu Umalizie WhatsApp',
         'Tumekufungulia WhatsApp na ujumbe wako tayari. Bonyeza <strong>Send</strong> ili malalamiko yawafikie timu yetu.');
       restore();
       return;
     }
-
 
     var payload = {
       access_key: WEB3FORMS_KEY,
@@ -93,7 +96,9 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     })
-      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        return r.json().catch(function () { throw new Error('HTTP ' + r.status); });
+      })
       .then(function (res) {
         if (res && res.success) {
           form.reset();
@@ -103,9 +108,9 @@
           throw new Error((res && res.message) || 'failed');
         }
       })
-      .catch(function () {
-        openWhatsApp(fd);
-        showError('Barua pepe imeshindikana, kwa hiyo tumekufungulia WhatsApp. Bonyeza Send ili kutuma malalamiko yako.');
+      .catch(function (err) {
+        console.error('Web3Forms failed:', err);
+        showErrorWithWhatsApp(err && err.message, fd);
       })
       .then(restore);
   });
