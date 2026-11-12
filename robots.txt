@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://infinityoilgroup.co.tz/sitemap.xml
