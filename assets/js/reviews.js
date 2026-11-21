@@ -3,15 +3,17 @@
    - New reviews are saved as approved=false; you approve them in Supabase. */
 (function () {
   /* >>> PASTE YOUR TWO VALUES HERE (Supabase > Project Settings > API) <<< */
-  var SUPABASE_URL = 'PASTE_PROJECT_URL_HERE';        // e.g. https://abcdxyz.supabase.co
-  var SUPABASE_ANON_KEY = 'PASTE_ANON_PUBLIC_KEY_HERE';
+  var SUPABASE_URL = 'https://gndoukztrdenfuofohnz.supabase.co';        
+  var SUPABASE_ANON_KEY = 'sb_publishable_Kg6a9Uu2SoNnHSX6zL3o9w_VA5hr37I';
 
   var grid = document.getElementById('testiGrid');
   var form = document.getElementById('reviewForm');
   if (!grid || SUPABASE_URL.indexOf('PASTE') === 0) return;
 
   var API = SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/reviews';
-  var HEAD = { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY };
+  var HEAD = { apikey: SUPABASE_ANON_KEY };
+  // Old-style keys (eyJ...) are JWTs and go in Authorization too; new sb_publishable_ keys must NOT.
+  if (SUPABASE_ANON_KEY.indexOf('eyJ') === 0) HEAD.Authorization = 'Bearer ' + SUPABASE_ANON_KEY;
   var STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>';
 
   function stars(n) {
@@ -92,7 +94,9 @@
       })
     })
       .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
+        if (!r.ok) {
+          return r.text().then(function (t) { console.error('Review save failed:', r.status, t); throw new Error('HTTP ' + r.status); });
+        }
         localStorage.setItem('ioReviewAt', String(Date.now()));
         form.reset(); count.textContent = '0/600';
         show('ok', 'Asante! Maoni yako yamepokelewa na yataonekana mara tu timu yetu itakapoyakagua.');
