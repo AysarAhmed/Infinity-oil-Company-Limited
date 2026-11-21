@@ -25,6 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/extras.css">
+<link rel="stylesheet" href="assets/css/reviews.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -358,7 +359,7 @@
       </div>
       <!-- Maoni mawili halisi yamebaki. Ongeza mengine kutoka Google Reviews, Instagram
            au moja kwa moja kituoni — kila kadi ihifadhi jina na tawi la mteja. -->
-      <div class="testi-grid">
+      <div class="testi-grid" id="testiGrid">
         <div class="testi-card reveal">
           <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
           <p class="testi-quote">"Infinity Oil imekuwa mshirika mzuri katika mahitaji yetu ya mafuta. Huduma ni nzuri, mawasiliano yao ni rahisi na wanajitahidi kuhakikisha mteja anapata huduma kwa wakati. Ninapendekeza huduma zao.”</p>
@@ -374,6 +375,23 @@
             <div class="testi-avatar"><img src="assets/img/mohammed.jpg" alt="Mohammed Rashid" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"></div>
             <div><b>Mohammed Rashid</b><span>Mbeya</span></div>
           </div>
+        </div>
+      </div>
+      <div class="rv-wrap reveal">
+        <div class="rv-box">
+          <h3>Toa Maoni Yako</h3>
+          <p>Umetumia kituo chetu? Tuambie uzoefu wako. Maoni yote hukaguliwa kabla ya kuonekana.</p>
+          <form id="reviewForm" novalidate>
+            <div class="rv-row">
+              <div class="rv-field"><label for="rvName">JINA LAKO</label><input id="rvName" name="name" type="text" minlength="2" maxlength="60" required autocomplete="name"></div>
+              <div class="rv-field"><label for="rvBranch">TAWI</label><select id="rvBranch" name="branch"><option value="">Chagua tawi (si lazima)</option><option>Dar es Salaam</option><option>Mbeya</option><option>Rungwa</option><option>Mitundu</option><option>Songwe</option><option>Saza</option><option>Manyoni</option><option>Kahama</option></select></div>
+            </div>
+            <div class="rv-field"><label>KIWANGO CHAKO</label><div class="rv-stars"><input type="radio" id="rs5" name="rating" value="5"><label for="rs5" title="5"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Nyota 5</label><input type="radio" id="rs4" name="rating" value="4"><label for="rs4" title="4"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Nyota 4</label><input type="radio" id="rs3" name="rating" value="3"><label for="rs3" title="3"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Nyota 3</label><input type="radio" id="rs2" name="rating" value="2"><label for="rs2" title="2"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Nyota 2</label><input type="radio" id="rs1" name="rating" value="1"><label for="rs1" title="1"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Nyota 1</label></div></div>
+            <div class="rv-field"><label for="rvComment">MAONI YAKO</label><textarea id="rvComment" name="comment" minlength="10" maxlength="600" required></textarea><div class="rv-count" id="rvCount">0/600</div></div>
+            <input class="rv-honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn-primary" type="submit">Tuma Maoni</button>
+            <div class="rv-msg" id="rvMsg" role="status" aria-live="polite" hidden></div>
+          </form>
         </div>
       </div>
     </div>
@@ -453,6 +471,7 @@
 <script src="assets/js/hero-slider.js"></script>
 <script src="assets/js/choose-cards.js"></script>
 <script src="assets/js/extras.js"></script>
+<script src="assets/js/reviews.js"></script>
 <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>

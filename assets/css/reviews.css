@@ -1,0 +1,28 @@
+/* Live customer reviews — uses variables from style.css */
+.rv-wrap{max-width:var(--container);margin:56px auto 0}
+.rv-box{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-md);max-width:720px;margin:0 auto}
+.rv-box h3{font-family:'Playfair Display',serif;font-size:24px;margin:0 0 6px;color:var(--navy-deep)}
+.rv-box>p{color:var(--muted);font-size:14.5px;margin:0 0 22px}
+.rv-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rv-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.rv-field label{font-size:12.5px;font-weight:800;letter-spacing:.5px;color:var(--navy)}
+.rv-field input,.rv-field select,.rv-field textarea{font:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--black);width:100%}
+.rv-field textarea{min-height:110px;resize:vertical}
+.rv-field input:focus,.rv-field select:focus,.rv-field textarea:focus{outline:3px solid var(--navy-2);outline-offset:1px}
+.rv-stars{display:flex;gap:6px;flex-direction:row-reverse;justify-content:flex-end}
+.rv-stars input{position:absolute;opacity:0;pointer-events:none}
+.rv-stars label{cursor:pointer;font-size:0;letter-spacing:0;margin:0}
+.rv-stars label svg{width:32px;height:32px;fill:#d9d6cb;transition:fill .15s,transform .15s}
+.rv-stars label:hover svg,.rv-stars label:hover~label svg,.rv-stars input:checked~label svg{fill:var(--gold)}
+.rv-stars label:hover svg{transform:scale(1.12)}
+.rv-stars input:focus-visible+label svg{outline:3px solid var(--navy-2);border-radius:6px}
+.rv-honey{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+.rv-count{font-size:12px;color:var(--muted-2);text-align:right}
+.rv-msg{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:14px;font-weight:600}
+.rv-msg[hidden]{display:none}
+.rv-msg.ok{background:#e6f4ea;color:#14532d}
+.rv-msg.err{background:#fdecea;color:#8a1f17}
+.rv-avg{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;font-weight:700;color:var(--navy-deep)}
+.rv-avg .testi-stars svg{width:18px;height:18px}
+.testi-avatar.rv-init{font-size:15px}
+@media(max-width:560px){.rv-row{grid-template-columns:1fr}.rv-box{padding:22px 18px}}
