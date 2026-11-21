@@ -57,7 +57,7 @@
   .logo-plate.lg .logo-mark{ height:78px; }
   .logo-plate.md .logo-mark{ height:36px; }
 
-  /* Inline infinity glyph, used as recurring signature mark */
+
   .infi{ display:inline-block; flex-shrink:0; }
   .kicker{
     display:flex; align-items:center; gap:10px;
@@ -367,11 +367,11 @@
     .complaint-wrap{ padding:26px; }
   }
 
-  /* ============================================================
+  /* 
      ADDITIONS — trust bar, testimonials, intro splash, WhatsApp FAB,
      gallery lightbox, license cards, placeholder/needs-info badges.
      Added during the pre-launch polish pass — see TODO-KABLA-YA-KUZINDUA.md
-     ============================================================ */
+   */
 
   /* Trust / credentials bar */
   .trust-bar{ background:var(--navy-deep); color:#fff; padding:22px 24px; }
@@ -617,7 +617,7 @@
   }
 
   /* ============================================================
-     Kuhusu Sisi — standalone page (replaces the old slide-in overlay)
+     Kuhusu Sisi — standalone page
      ============================================================ */
   .page-hero{ position:relative; color:#fff; padding:84px 24px 72px; background-size:cover; background-position:center; overflow:hidden; background-color:var(--navy-deep); }
   .page-hero::before{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,18,56,0.80) 0%, rgba(0,12,36,0.93) 100%); }
